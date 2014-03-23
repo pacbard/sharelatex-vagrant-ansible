@@ -3,6 +3,7 @@
 # Windows shell provisioner for Ansible playbooks, based on KSid's
 # windows-vagrant-ansible: https://github.com/KSid/windows-vagrant-ansible
 # and geerlingguy's JJG-Ansible-Windows https://github.com/geerlingguy/JJG-Ansible-Windows
+export PYTHONUNBUFFERED=1
 
 ANSIBLE_PLAYBOOK=$1
 ANSIBLE_HOSTS=$2
@@ -28,5 +29,5 @@ fi
 
 cp /ansible/${ANSIBLE_HOSTS} ${TEMP_HOSTS} && chmod -x ${TEMP_HOSTS}
 echo "Running Ansible provisioner defined in Vagrantfile."
-ansible-playbook /ansible/${ANSIBLE_PLAYBOOK} --inventory-file=${TEMP_HOSTS} --extra-vars "is_windows=true" --connection=local
+ansible-playbook /ansible/${ANSIBLE_PLAYBOOK} --inventory-file=${TEMP_HOSTS} --extra-vars "is_windows=true" --connection=local -v
 rm ${TEMP_HOSTS}
